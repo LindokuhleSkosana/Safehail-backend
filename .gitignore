@@ -5,3 +5,4 @@ logs/
 .env.local
 *.log
 *.tsbuildinfo
+*-service-account.json
