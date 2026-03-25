@@ -25,6 +25,9 @@ import adminRoutes from './modules/admin/admin.routes';
 
 const app = express();
 
+// ── Trust proxy (required on Render / any reverse-proxy host) ─────────────
+app.set('trust proxy', 1);
+
 // ── Security headers ──────────────────────────────────────────────────────
 app.use(
   helmet({

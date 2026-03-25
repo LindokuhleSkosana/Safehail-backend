@@ -68,6 +68,8 @@ async function runMigrations(): Promise<void> {
 }
 
 runMigrations().catch((err) => {
-  logger.error('Migration runner failed', { error: err.message });
+  logger.error('Migration runner failed', {
+    error: err instanceof Error ? err.message || err.stack : String(err),
+  });
   process.exit(1);
 });

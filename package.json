@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json && node -e \"const fs=require('fs'),path=require('path');const src=path.join('src','db','migrations');const dst=path.join('dist','db','migrations');if(fs.existsSync(src)){fs.cpSync(src,dst,{recursive:true});console.log('Copied migrations to dist')}\"",
     "start": "node dist/server.js",
     "migrate": "ts-node src/db/migrate.ts",
     "seed": "ts-node src/db/seeds/seed.ts",
