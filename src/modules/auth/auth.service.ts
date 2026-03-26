@@ -42,6 +42,9 @@ async function sendOtpSms(phone: string, otp: string): Promise<void> {
       from: env.AFRICAS_TALKING_SENDER_ID,
     });
     logger.info('OTP SMS sent', { phone: phone.slice(0, -4) + '****' });
+    if (env.AFRICAS_TALKING_USERNAME === 'sandbox') {
+      logger.info(`[SANDBOX] OTP for ${phone}: ${otp}`);
+    }
   } catch (err) {
     logger.error('Failed to send OTP SMS', {
       error: err instanceof Error ? err.message : String(err),
