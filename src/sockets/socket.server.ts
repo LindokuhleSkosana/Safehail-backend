@@ -20,7 +20,13 @@ export function initSocketServer(httpServer: HttpServer): typeof io {
     httpServer,
     {
       cors: {
-        origin: env.ALLOWED_ORIGINS.split(','),
+        // Allow configured origins + mobile apps (which send no Origin header)
+        origin: (origin, callback) => {
+          if (!origin) return callback(null, true); // mobile apps have no origin
+          const allowed = env.ALLOWED_ORIGINS.split(',').map((o) => o.trim());
+          if (allowed.includes(origin)) return callback(null, true);
+          callback(new Error(`CORS blocked: ${origin}`));
+        },
         methods: ['GET', 'POST'],
         credentials: true,
       },
